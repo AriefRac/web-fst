@@ -2,7 +2,7 @@ import { Link } from '@inertiajs/react';
 import Autoplay from 'embla-carousel-autoplay';
 import useEmblaCarousel from 'embla-carousel-react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
+import { AnimatePresence, m, useReducedMotion } from 'motion/react';
 import { useCallback, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -55,7 +55,7 @@ export function HeroSlider({ banners, interval = 6000 }: HeroSliderProps) {
 
     return (
         <section
-            className="relative isolate overflow-hidden bg-neutral-900"
+            className="relative isolate overflow-hidden bg-primary-strong"
             aria-roledescription="carousel"
             aria-label="Banner utama"
         >
@@ -75,7 +75,7 @@ export function HeroSlider({ banners, interval = 6000 }: HeroSliderProps) {
                                         srcSet={banner.imageMobile}
                                     />
                                 )}
-                                <motion.img
+                                <m.img
                                     src={banner.imageDesktop}
                                     alt=""
                                     className="absolute inset-0 size-full object-cover"
@@ -89,20 +89,24 @@ export function HeroSlider({ banners, interval = 6000 }: HeroSliderProps) {
                                         duration: interval / 1000 + 1,
                                         ease: 'linear',
                                     }}
+                                    // Slide pertama = elemen LCP: muat secepatnya
                                     loading={index === 0 ? 'eager' : 'lazy'}
+                                    fetchPriority={index === 0 ? 'high' : 'low'}
+                                    decoding={index === 0 ? 'sync' : 'async'}
                                 />
                             </picture>
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
+                            <div className="absolute inset-0 bg-gradient-to-r from-primary-strong/90 via-primary-strong/55 to-black/10" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                         </div>
                     ))}
                 </div>
             </div>
 
             {/* Teks slide aktif, dianimasikan ulang setiap ganti slide */}
-            <div className="pointer-events-none absolute inset-0 flex items-end">
-                <div className="mx-auto w-full max-w-7xl px-4 pb-20 md:px-6 md:pb-24">
+            <div className="pointer-events-none absolute inset-0 flex items-center">
+                <div className="mx-auto w-full max-w-7xl px-4 pt-4 pb-28 md:px-6">
                     <AnimatePresence mode="wait">
-                        <motion.div
+                        <m.div
                             key={active.id}
                             className="pointer-events-auto max-w-2xl text-white"
                             initial="hidden"
@@ -119,41 +123,59 @@ export function HeroSlider({ banners, interval = 6000 }: HeroSliderProps) {
                                 },
                             }}
                         >
-                            <motion.h1
+                            <m.span
                                 variants={fadeUp}
-                                className="text-3xl font-semibold tracking-tight text-balance md:text-5xl"
+                                className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold tracking-wide backdrop-blur"
+                            >
+                                <span className="size-1.5 rounded-full bg-brand-yellow" />
+                                Fakultas Sains dan Teknologi
+                            </m.span>
+                            <m.h1
+                                variants={fadeUp}
+                                className="text-3xl font-extrabold tracking-tight text-balance md:text-5xl lg:text-6xl"
                             >
                                 {active.title}
-                            </motion.h1>
+                            </m.h1>
                             {active.subtitle && (
-                                <motion.p
+                                <m.p
                                     variants={fadeUp}
                                     className="mt-4 text-base text-white/85 md:text-lg"
                                 >
                                     {active.subtitle}
-                                </motion.p>
+                                </m.p>
                             )}
                             {active.ctaUrl && active.ctaLabel && (
-                                <motion.div variants={fadeUp} className="mt-8">
+                                <m.div variants={fadeUp} className="mt-8">
                                     <Button
                                         asChild
                                         size="lg"
-                                        variant="secondary"
+                                        className="h-12 rounded-full bg-brand-yellow px-7 font-bold text-brand-yellow-foreground shadow-lg shadow-black/20 hover:bg-brand-yellow/90"
                                     >
-                                        <Link href={active.ctaUrl}>
-                                            {active.ctaLabel}
-                                        </Link>
+                                        {/^https?:\/\//.test(active.ctaUrl) ? (
+                                            // Tautan ke situs lain (mis. PMB) tidak boleh lewat Inertia
+                                            <a
+                                                href={active.ctaUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                {active.ctaLabel}
+                                            </a>
+                                        ) : (
+                                            <Link href={active.ctaUrl}>
+                                                {active.ctaLabel}
+                                            </Link>
+                                        )}
                                     </Button>
-                                </motion.div>
+                                </m.div>
                             )}
-                        </motion.div>
+                        </m.div>
                     </AnimatePresence>
                 </div>
             </div>
 
             {banners.length > 1 && (
                 <>
-                    <div className="absolute right-4 bottom-6 flex gap-2 md:right-6">
+                    <div className="absolute right-4 bottom-20 flex gap-2 md:right-6 md:bottom-24">
                         <Button
                             size="icon"
                             variant="secondary"
@@ -174,7 +196,7 @@ export function HeroSlider({ banners, interval = 6000 }: HeroSliderProps) {
                         </Button>
                     </div>
 
-                    <div className="absolute bottom-8 left-1/2 flex -translate-x-1/2 gap-2">
+                    <div className="absolute bottom-[88px] left-1/2 flex -translate-x-1/2 gap-2 md:bottom-[104px]">
                         {banners.map((banner, index) => (
                             <button
                                 key={banner.id}
@@ -185,7 +207,7 @@ export function HeroSlider({ banners, interval = 6000 }: HeroSliderProps) {
                                 className={cn(
                                     'h-1.5 rounded-full bg-white/50 transition-all duration-300',
                                     selected === index
-                                        ? 'w-8 bg-white'
+                                        ? 'w-8 bg-brand-yellow'
                                         : 'w-1.5 hover:bg-white/80',
                                 )}
                             />

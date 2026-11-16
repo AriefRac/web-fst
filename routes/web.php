@@ -14,6 +14,7 @@ Route::inertia('/', 'public/home')->name('home');
 
 $placeholders = [
     'profil' => 'Profil Fakultas',
+    'akademik' => 'Akademik',
     'berita' => 'Berita',
     'agenda' => 'Agenda',
     'pengumuman' => 'Pengumuman',

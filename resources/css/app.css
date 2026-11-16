@@ -5,13 +5,36 @@
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 
-@custom-variant dark (&:is(.dark *));
+/* Halaman publik selalu terang: elemen di dalam .theme-light tidak ikut dark mode */
+@custom-variant dark (&:is(.dark *):not(.theme-light, .theme-light *));
 
-@theme {
+@theme inline {
+    --animate-marquee: marquee 40s linear infinite;
+    --animate-nav-underline: nav-underline 0.35s ease-out;
+
+    @keyframes nav-underline {
+        from {
+            transform: scaleX(0);
+        }
+        to {
+            transform: scaleX(1);
+        }
+    }
+
+    @keyframes marquee {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(-50%);
+        }
+    }
+
+    /* "fallback" = Arial yang ukurannya disamakan, supaya teks tidak loncat saat font selesai dimuat */
     --font-sans:
-        'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
-        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-        'Noto Color Emoji';
+        'Plus Jakarta Sans', 'Plus Jakarta Sans fallback', ui-sans-serif,
+        system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
 
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
@@ -28,6 +51,12 @@
 
     --color-primary: var(--primary);
     --color-primary-foreground: var(--primary-foreground);
+    --color-primary-soft: var(--primary-soft);
+    --color-primary-strong: var(--primary-strong);
+
+    /* Aksen kuning dari logo UIN */
+    --color-brand-yellow: var(--brand-yellow);
+    --color-brand-yellow-foreground: var(--brand-yellow-foreground);
 
     --color-secondary: var(--secondary);
     --color-secondary-foreground: var(--secondary-foreground);
@@ -61,15 +90,24 @@
     --color-sidebar-ring: var(--sidebar-ring);
 }
 
-:root {
+/*
+ * Warna brand FST: ungu = warna utama (aksen), kuning = aksen dari logo UIN,
+ * putih = latar. Area luas tetap putih/abu sangat muda.
+ */
+:root,
+.theme-light {
     --background: oklch(1 0 0);
     --foreground: oklch(0.145 0 0);
     --card: oklch(1 0 0);
     --card-foreground: oklch(0.145 0 0);
     --popover: oklch(1 0 0);
     --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
+    --primary: oklch(0.42 0.17 300);
     --primary-foreground: oklch(0.985 0 0);
+    --primary-soft: oklch(0.965 0.02 300);
+    --primary-strong: oklch(0.3 0.13 300);
+    --brand-yellow: oklch(0.8 0.155 82);
+    --brand-yellow-foreground: oklch(0.25 0.05 70);
     --secondary: oklch(0.97 0 0);
     --secondary-foreground: oklch(0.205 0 0);
     --muted: oklch(0.97 0 0);
@@ -80,7 +118,7 @@
     --destructive-foreground: oklch(0.577 0.245 27.325);
     --border: oklch(0.922 0 0);
     --input: oklch(0.922 0 0);
-    --ring: oklch(0.87 0 0);
+    --ring: oklch(0.42 0.17 300);
     --chart-1: oklch(0.646 0.222 41.116);
     --chart-2: oklch(0.6 0.118 184.704);
     --chart-3: oklch(0.398 0.07 227.392);
@@ -89,7 +127,7 @@
     --radius: 0.625rem;
     --sidebar: oklch(0.985 0 0);
     --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
+    --sidebar-primary: oklch(0.42 0.17 300);
     --sidebar-primary-foreground: oklch(0.985 0 0);
     --sidebar-accent: oklch(0.97 0 0);
     --sidebar-accent-foreground: oklch(0.205 0 0);
@@ -104,8 +142,12 @@
     --card-foreground: oklch(0.985 0 0);
     --popover: oklch(0.145 0 0);
     --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.985 0 0);
-    --primary-foreground: oklch(0.205 0 0);
+    --primary: oklch(0.72 0.14 300);
+    --primary-foreground: oklch(0.18 0.05 300);
+    --primary-soft: oklch(0.27 0.06 300);
+    --primary-strong: oklch(0.82 0.1 300);
+    --brand-yellow: oklch(0.8 0.155 82);
+    --brand-yellow-foreground: oklch(0.25 0.05 70);
     --secondary: oklch(0.269 0 0);
     --secondary-foreground: oklch(0.985 0 0);
     --muted: oklch(0.269 0 0);

@@ -20,16 +20,18 @@ export const banners: Banner[] = [
         title: 'Penerimaan Mahasiswa Baru 2027',
         subtitle:
             'Pendaftaran jalur mandiri dibuka hingga 31 Januari 2027. Temukan program studi yang sesuai minatmu.',
-        imageDesktop: img('fakultas-1', 1920, 800),
+        imageDesktop: '/images/hero/gedung-fst.webp',
+        imageMobile: '/images/hero/gedung-fst-800.webp',
         ctaLabel: 'Info Pendaftaran',
-        ctaUrl: '/pengumuman',
+        ctaUrl: 'https://pmb.uinbanten.ac.id/',
     },
     {
         id: 2,
         title: 'Akreditasi Unggul untuk Tiga Program Studi',
         subtitle:
             'Komitmen fakultas terhadap mutu pendidikan diakui secara nasional.',
-        imageDesktop: img('fakultas-2', 1920, 800),
+        // TODO: resolusi asli hanya 1138x188, ganti dengan foto ≥ 1600 px
+        imageDesktop: '/images/hero/gerbang-uin.webp',
         ctaLabel: 'Baca Selengkapnya',
         ctaUrl: '/berita',
     },

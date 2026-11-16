@@ -392,7 +392,8 @@ activity_log          (spatie/laravel-activitylog)
 | Backend | Laravel 13 (React starter kit, Fortify auth), PHP 8.5 |
 | Frontend | React 19 + TypeScript via Inertia.js 3, Vite+ |
 | UI | Tailwind CSS 4 + shadcn/ui (CMS); desain khusus untuk halaman publik |
-| Animasi | Motion (ex-Framer Motion) untuk animasi & transisi; Embla Carousel + Autoplay untuk slider banner |
+| Animasi | Motion (ex-Framer Motion) via `LazyMotion` + `m.*` untuk animasi & transisi; Embla Carousel + Autoplay untuk slider banner; CSS untuk efek sederhana |
+| Font | Plus Jakarta Sans (variable, self-hosted via `laravel-vite-plugin/fonts`) + `fontaine` untuk fallback metrics |
 | Database | PostgreSQL 16 |
 | Auth | Laravel Fortify dari starter kit React (session-based) |
 | Hak akses | spatie/laravel-permission + Policy |
@@ -417,13 +418,46 @@ activity_log          (spatie/laravel-activitylog)
 
 | Aspek | Kebutuhan |
 |---|---|
-| Performa | Beranda < 2,5 dtk (LCP) di 4G; gambar lazy-load & WebP; cache query beranda |
+| Performa | Lihat 7.1 — beranda LCP < 2,5 dtk di 4G, JS awal ≤ 170 KB gzip |
 | Keamanan | CSRF (bawaan), validasi & sanitasi input, validasi MIME upload, rate-limit login, password ter-hash, policy di setiap aksi |
 | Responsif | Mobile-first, nyaman dari 360 px hingga desktop |
 | Aksesibilitas | Kontras WCAG AA, alt text wajib pada gambar, navigasi keyboard, slider bisa dijeda |
 | Keandalan | Backup database harian; soft delete untuk konten |
 | Audit | Semua perubahan status & aksi admin tercatat |
 | Browser | 2 versi terakhir Chrome, Firefox, Edge, Safari |
+
+### 7.1 Anggaran & Aturan Performa
+
+Web harus tetap ringan karena banyak pengunjung (mahasiswa, calon mahasiswa) membuka dari HP dengan kuota terbatas.
+
+**Anggaran (halaman publik, diukur dari build produksi):**
+
+| Metrik | Batas | Kondisi saat ini (beranda) |
+|---|---|---|
+| JS awal (gzip) | ≤ 170 KB | 162 KB (sebelum optimasi: 252 KB) |
+| CSS (gzip) | ≤ 25 KB | 16 KB |
+| Font | 1 file woff2, ≤ 40 KB | 27 KB (variable, latin) |
+| LCP (4G) | < 2,5 dtk | — (ukur dengan Lighthouse saat deploy) |
+| CLS | < 0,1 | — |
+
+**Aturan frontend (wajib diikuti saat menambah fitur):**
+- Kode CMS **tidak boleh** masuk bundle halaman publik. Layout dimuat dinamis per jenis halaman (`resources/js/app.tsx`), dan provider khusus CMS (tooltip, toast) ada di `layouts/cms-providers.tsx`.
+- Animasi memakai `m.*` dari Motion di dalam `LazyMotion` (bukan `motion.*`); fitur animasi dimuat async. Efek sederhana (hover, denyut, marquee) cukup pakai CSS.
+- Komponen berat yang jarang dipakai dimuat lazy saat dibutuhkan (contoh: menu mobile `components/public/mobile-menu.tsx`).
+- Embed pihak ketiga memakai *facade* atau `loading="lazy"`: video YouTube baru dimuat saat tombol play diklik; Google Maps lazy.
+- Gambar: `loading="lazy"` + `decoding="async"` untuk gambar di bawah layar pertama; gambar hero pertama `fetchpriority="high"`; selalu beri dimensi/rasio agar tidak terjadi layout shift.
+- Font di-host sendiri (diunduh saat build), satu file variable woff2, dengan fallback Arial yang metriknya disamakan.
+
+**Aturan gambar upload (backend):**
+- Setiap upload gambar diubah ke **WebP** dan dibuat beberapa ukuran (mis. thumbnail 400 px, sedang 800 px, besar 1600 px; banner 768/1280/1920 px), lalu dipakai lewat `srcset` + `sizes`.
+- Batas ukuran file asli tetap divalidasi (PRD 4.4–4.7); file asli tidak disajikan langsung ke publik.
+
+**Aturan server / deploy:**
+- `php artisan optimize` (config, route, view, event cache) dan OPcache aktif.
+- Kompresi gzip/brotli di web server; aset `/build/*` diberi `Cache-Control: public, max-age=31536000, immutable` (nama file sudah ber-hash).
+- Inertia SSR (`npm run build:ssr`) diaktifkan untuk halaman publik.
+- Query beranda (headline, berita, agenda, pengumuman, statistik, mitra) di-cache dan dibersihkan saat konten berubah.
+- Cek Lighthouse (mobile) sebelum rilis; skor Performance target ≥ 90.
 
 ---
 

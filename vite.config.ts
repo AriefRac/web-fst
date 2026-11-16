@@ -4,7 +4,7 @@ import babel from '@rolldown/plugin-babel';
 import tailwindcss from '@tailwindcss/vite';
 import react, { reactCompilerPreset } from '@vitejs/plugin-react';
 import laravel from 'laravel-vite-plugin';
-import { bunny } from 'laravel-vite-plugin/fonts';
+import { google } from 'laravel-vite-plugin/fonts';
 import { defineConfig, lazyPlugins } from 'vite-plus';
 
 export default defineConfig({
@@ -13,8 +13,12 @@ export default defineConfig({
             input: ['resources/css/app.css', 'resources/js/app.tsx'],
             refresh: true,
             fonts: [
-                bunny('Instrument Sans', {
-                    weights: [400, 500, 600],
+                // Diunduh saat build lalu di-host sendiri (pengunjung tidak
+                // mengakses Google). Google hanya mengirim woff2 + subset latin.
+                google('Plus Jakarta Sans', {
+                    weights: [400, 500, 600, 700, 800],
+                    subsets: ['latin'],
+                    preload: [{ weight: 400 }, { weight: 700 }],
                 }),
             ],
         }),

@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import type { HTMLMotionProps } from 'motion/react';
 
 type RevealProps = HTMLMotionProps<'div'> & {
@@ -15,7 +15,7 @@ type RevealProps = HTMLMotionProps<'div'> & {
  */
 export function Reveal({ delay = 0, y = 24, children, ...props }: RevealProps) {
     return (
-        <motion.div
+        <m.div
             initial={{ opacity: 0, y }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
@@ -23,6 +23,6 @@ export function Reveal({ delay = 0, y = 24, children, ...props }: RevealProps) {
             {...props}
         >
             {children}
-        </motion.div>
+        </m.div>
     );
 }
