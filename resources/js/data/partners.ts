@@ -23,8 +23,6 @@ export const partners: Partner[] = [
         name: 'Pemerintah Kabupaten Tangerang',
         logo: '/images/partners/kab-tangerang.webp',
     },
-    { name: 'Institut Pertanian Bogor', logo: '/images/partners/ipb.svg' },
-    { name: 'Institut Teknologi Bandung', logo: '/images/partners/itb.svg' },
     {
         name: 'Universitas Sultan Ageng Tirtayasa',
         logo: '/images/partners/untirta.svg',
