@@ -1,12 +1,19 @@
 import type { Partner } from '@/data/partners';
 
+/** Minimal logo per putaran supaya satu putaran (±208 px/logo) lebih lebar dari layar 1920 px. */
+const MIN_PER_LOOP = 10;
+
 /**
  * Logo mitra yang bergeser terus-menerus (marquee).
- * - Daftar dirender dua kali agar perulangannya mulus (geser -50% lalu ulang).
+ * - Daftar diulang lalu dirender dua kali agar perulangannya mulus (geser -50% lalu ulang).
  * - Berhenti saat di-hover; logo abu-abu jadi berwarna saat di-hover.
  * - Jika pengguna memilih "reduce motion", tampil sebagai grid statis.
  */
 export function PartnerMarquee({ partners }: { partners: Partner[] }) {
+    // Kalau mitranya sedikit, ulangi daftar agar tidak ada celah kosong di layar lebar
+    const repeat = Math.max(1, Math.ceil(MIN_PER_LOOP / partners.length));
+    const loop = Array.from({ length: repeat }, () => partners).flat();
+
     return (
         <>
             <div className="group relative overflow-hidden motion-reduce:hidden">
@@ -15,10 +22,11 @@ export function PartnerMarquee({ partners }: { partners: Partner[] }) {
                 <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-background to-transparent" />
 
                 <ul className="flex w-max animate-marquee group-hover:[animation-play-state:paused]">
-                    {[...partners, ...partners].map((partner, i) => (
+                    {[...loop, ...loop].map((partner, i) => (
                         <li
                             key={`${partner.name}-${i}`}
                             className="flex w-44 shrink-0 items-center justify-center px-6 md:w-52"
+                            // Hanya salinan pertama yang dibaca screen reader
                             aria-hidden={i >= partners.length}
                         >
                             <PartnerLogo partner={partner} />
