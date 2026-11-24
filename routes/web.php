@@ -13,13 +13,35 @@ use Illuminate\Support\Facades\Route;
 Route::inertia('/', 'public/home')->name('home');
 
 $placeholders = [
-    'profil' => 'Profil Fakultas',
-    'akademik' => 'Akademik',
-    'berita' => 'Berita',
-    'agenda' => 'Agenda',
-    'pengumuman' => 'Pengumuman',
-    'dosen' => 'Dosen',
-    'dokumen' => 'Dokumen',
+    // Profil
+    'sambutan-dekan'       => 'Sambutan Dekan',
+    'visi-misi'            => 'Visi & Misi',
+    'sejarah'              => 'Sejarah',
+    'struktur-organisasi'  => 'Struktur Organisasi',
+    'alumni'               => 'Alumni',
+
+    // Akademik
+    'program-studi'        => 'Program Studi',
+    'dosen'                => 'Dosen',
+    'kalender'             => 'Kalender Akademik',
+    'beasiswa'             => 'Beasiswa',
+    'etika-mahasiswa'      => 'Etika Mahasiswa',
+    'akreditasi'           => 'Akreditasi',
+
+    // Penelitian
+    'matematika'           => 'Penelitian Matematika',
+    'fisika'               => 'Penelitian Fisika',
+    'kimia'                => 'Penelitian Kimia',
+    'biologi'              => 'Penelitian Biologi',
+    'informatika'          => 'Penelitian Informatika',
+
+    // Informasi & Layanan
+    'berita'               => 'Berita',
+    'pengumuman'           => 'Pengumuman',
+    'agenda'               => 'Agenda',
+    'dokumen'              => 'Dokumen',
+    'layanan-administrasi' => 'Layanan Administrasi',
+    'kritik-saran'         => 'Kritik & Saran',
 ];
 
 foreach ($placeholders as $path => $title) {
@@ -33,7 +55,7 @@ foreach ($placeholders as $path => $title) {
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
 });
 

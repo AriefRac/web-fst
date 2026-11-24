@@ -6,7 +6,7 @@ import {
     SheetHeader,
     SheetTitle,
 } from '@/components/ui/sheet';
-import { publicNav } from '@/data/navigation';
+import { isSubGroup, publicNav } from '@/data/navigation';
 import { site } from '@/data/site';
 import { cn } from '@/lib/utils';
 import { isActiveGroup, isActiveNav } from '@/lib/nav';
@@ -67,20 +67,60 @@ export default function MobileMenu({
                                     {item.label}
                                     <ChevronDown className="size-4 transition-transform group-open:rotate-180" />
                                 </summary>
-                                <div className="mt-1 mb-2 ml-3 flex flex-col gap-0.5 border-l pl-2">
-                                    {item.children.map((link) => (
-                                        <Link
-                                            key={link.href}
-                                            href={link.href}
-                                            onClick={() => onOpenChange(false)}
-                                            className={linkClass(
-                                                isActiveNav(url, link.href),
-                                                true,
-                                            )}
-                                        >
-                                            {link.label}
-                                        </Link>
-                                    ))}
+                                <div className="mt-1 mb-2 ml-3 flex flex-col gap-1 border-l pl-2">
+                                    {item.children.map((child) => {
+                                        if (isSubGroup(child)) {
+                                            return (
+                                                <div
+                                                    key={child.group}
+                                                    className="mt-1 flex flex-col gap-0.5"
+                                                >
+                                                    <span className="px-3 py-1 text-[11px] font-bold tracking-wider text-muted-foreground uppercase">
+                                                        {child.group}
+                                                    </span>
+                                                    {child.links.map((link) => (
+                                                        <Link
+                                                            key={link.href}
+                                                            href={link.href}
+                                                            onClick={() =>
+                                                                onOpenChange(
+                                                                    false,
+                                                                )
+                                                            }
+                                                            className={linkClass(
+                                                                isActiveNav(
+                                                                    url,
+                                                                    link.href,
+                                                                ),
+                                                                true,
+                                                            )}
+                                                        >
+                                                            {link.label}
+                                                        </Link>
+                                                    ))}
+                                                </div>
+                                            );
+                                        }
+
+                                        return (
+                                            <Link
+                                                key={child.href}
+                                                href={child.href}
+                                                onClick={() =>
+                                                    onOpenChange(false)
+                                                }
+                                                className={linkClass(
+                                                    isActiveNav(
+                                                        url,
+                                                        child.href,
+                                                    ),
+                                                    true,
+                                                )}
+                                            >
+                                                {child.label}
+                                            </Link>
+                                        );
+                                    })}
                                 </div>
                             </details>
                         ) : (
