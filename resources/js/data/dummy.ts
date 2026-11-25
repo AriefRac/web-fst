@@ -17,11 +17,11 @@ const img = (seed: string, w: number, h: number) =>
 export const banners: Banner[] = [
     {
         id: 1,
-        title: 'Penerimaan Mahasiswa Baru 2027',
+        title: 'Sains Unggul, Teknologi Inovatif, Berkarakter Islami',
         subtitle:
             'Pendaftaran jalur mandiri dibuka hingga 31 Januari 2027. Temukan program studi yang sesuai minatmu.',
-        imageDesktop: '/images/hero/gedung-fst.webp',
-        imageMobile: '/images/hero/gedung-fst-800.webp',
+        imageDesktop: '/images/hero/1.webp',
+        imageFit: 'contain',
         ctaLabel: 'Info Pendaftaran',
         ctaUrl: 'https://pmb.uinbanten.ac.id/',
     },
@@ -30,8 +30,8 @@ export const banners: Banner[] = [
         title: 'Akreditasi Unggul untuk Tiga Program Studi',
         subtitle:
             'Komitmen fakultas terhadap mutu pendidikan diakui secara nasional.',
-        // TODO: resolusi asli hanya 1138x188, ganti dengan foto ≥ 1600 px
-        imageDesktop: '/images/hero/gerbang-uin.webp',
+        imageDesktop: '/images/hero/2.webp',
+        imageFit: 'contain',
         ctaLabel: 'Baca Selengkapnya',
         ctaUrl: '/berita',
     },

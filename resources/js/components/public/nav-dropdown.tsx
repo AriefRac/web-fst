@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, ExternalLink } from 'lucide-react';
 import { useId, useState } from 'react';
 import type { FocusEvent, KeyboardEvent } from 'react';
 import { isSubGroup } from '@/data/navigation';
@@ -44,22 +44,37 @@ export function NavDropdown({
     };
 
     const renderLink = (link: NavLink) => {
-        const linkActive = isActiveNav(url, link.href);
+        const isExternal = /^https?:\/\//.test(link.href);
+        const linkActive = !isExternal && isActiveNav(url, link.href);
+        const classes = cn(
+            'flex items-center justify-between gap-2 rounded-lg border-l-[3px] px-3 py-2 text-sm font-medium transition-colors hover:bg-primary-soft hover:text-primary',
+            linkActive
+                ? 'border-brand-yellow bg-primary-soft text-primary'
+                : 'border-transparent text-foreground/80',
+        );
 
         return (
             <li key={link.href}>
-                <Link
-                    href={link.href}
-                    onClick={() => setOpen(false)}
-                    className={cn(
-                        'block rounded-lg border-l-[3px] px-3 py-2 text-sm font-medium transition-colors hover:bg-primary-soft hover:text-primary',
-                        linkActive
-                            ? 'border-brand-yellow bg-primary-soft text-primary'
-                            : 'border-transparent text-foreground/80',
-                    )}
-                >
-                    {link.label}
-                </Link>
+                {isExternal ? (
+                    <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => setOpen(false)}
+                        className={classes}
+                    >
+                        <span>{link.label}</span>
+                        <ExternalLink className="size-3.5 shrink-0 opacity-60" />
+                    </a>
+                ) : (
+                    <Link
+                        href={link.href}
+                        onClick={() => setOpen(false)}
+                        className={classes}
+                    >
+                        {link.label}
+                    </Link>
+                )}
             </li>
         );
     };
@@ -78,8 +93,8 @@ export function NavDropdown({
                 aria-controls={menuId}
                 onClick={() => setOpen((value) => !value)}
                 className={cn(
-                    'relative flex items-center gap-1 rounded-md px-3 py-2 text-sm font-semibold transition-colors hover:text-primary',
-                    active || open ? 'text-primary' : 'text-foreground/70',
+                    'relative flex items-center gap-1 rounded-md px-3 py-2 text-sm font-semibold transition-colors hover:text-brand-yellow',
+                    active || open ? 'text-brand-yellow' : 'text-white/90',
                 )}
             >
                 {label}
@@ -107,7 +122,7 @@ export function NavDropdown({
             >
                 <div
                     className={cn(
-                        'overflow-hidden rounded-xl border bg-white p-3 shadow-xl shadow-primary/10',
+                        'overflow-hidden rounded-xl border bg-popover p-3 text-popover-foreground shadow-xl shadow-primary/10',
                         hasSubgroups ? 'w-[520px]' : 'w-60',
                     )}
                 >
@@ -118,7 +133,7 @@ export function NavDropdown({
                     </div>
 
                     {hasSubgroups ? (
-                        <div className="grid grid-cols-2 divide-x divide-neutral-100">
+                        <div className="grid grid-cols-2 divide-x divide-border">
                             {links.map((item, idx) => {
                                 if (isSubGroup(item)) {
                                     return (
@@ -129,7 +144,7 @@ export function NavDropdown({
                                                 idx === 0 ? 'pr-3' : 'pl-3',
                                             )}
                                         >
-                                            <div className="px-3 py-1.5 text-xs font-black tracking-wide text-foreground uppercase">
+                                            <div className="mb-1 border-b border-border px-3 pt-1 pb-2 text-xs font-extrabold tracking-wide text-primary uppercase">
                                                 {item.group}
                                             </div>
                                             <ul className="flex flex-col gap-0.5">

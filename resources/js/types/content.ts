@@ -9,6 +9,7 @@ export type Banner = {
     subtitle?: string | null;
     imageDesktop: string;
     imageMobile?: string | null;
+    imageFit?: 'cover' | 'contain';
     ctaLabel?: string | null;
     ctaUrl?: string | null;
 };

@@ -2,7 +2,13 @@ import { Link } from '@inertiajs/react';
 import { site } from '@/data/site';
 import { cn } from '@/lib/utils';
 
-export function SiteLogo({ className }: { className?: string }) {
+export function SiteLogo({
+    className,
+    inverted = false,
+}: {
+    className?: string;
+    inverted?: boolean;
+}) {
     return (
         <Link href="/" className={cn('flex items-center gap-3', className)}>
             <img
@@ -14,10 +20,20 @@ export function SiteLogo({ className }: { className?: string }) {
                 height={44}
             />
             <span className="leading-tight">
-                <span className="block text-sm font-bold text-primary-strong">
+                <span
+                    className={cn(
+                        'block text-sm font-bold',
+                        inverted ? 'text-white' : 'text-primary-strong',
+                    )}
+                >
                     {site.facultyName}
                 </span>
-                <span className="block text-xs text-muted-foreground">
+                <span
+                    className={cn(
+                        'block text-xs',
+                        inverted ? 'text-white/80' : 'text-muted-foreground',
+                    )}
+                >
                     {site.university}
                 </span>
             </span>

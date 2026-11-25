@@ -8,7 +8,7 @@ const mapsEmbedSrc = `https://www.google.com/maps?q=${encodeURIComponent(site.ma
 
 export function SiteFooter() {
     return (
-        <footer className="mt-24 border-t bg-neutral-50">
+        <footer className="mt-24 border-t bg-muted/40 dark:bg-neutral-900/60">
             {/* Garis aksen ungu + kuning */}
             <div className="flex h-1">
                 <span className="flex-[3] bg-primary" />
@@ -51,12 +51,23 @@ export function SiteFooter() {
                     <ul className="grid grid-cols-2 gap-2.5 text-sm text-muted-foreground">
                         {publicNavLinks.map((item) => (
                             <li key={item.href}>
-                                <Link
-                                    href={item.href}
-                                    className="transition-colors hover:text-primary"
-                                >
-                                    {item.label}
-                                </Link>
+                                {/^https?:\/\//.test(item.href) ? (
+                                    <a
+                                        href={item.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="transition-colors hover:text-primary"
+                                    >
+                                        {item.label}
+                                    </a>
+                                ) : (
+                                    <Link
+                                        href={item.href}
+                                        className="transition-colors hover:text-primary"
+                                    >
+                                        {item.label}
+                                    </Link>
+                                )}
                             </li>
                         ))}
                     </ul>
@@ -77,7 +88,7 @@ export function SiteFooter() {
                             <ExternalLink className="size-3" />
                         </a>
                     </div>
-                    <div className="overflow-hidden rounded-xl border bg-white">
+                    <div className="overflow-hidden rounded-xl border bg-card">
                         <iframe
                             src={mapsEmbedSrc}
                             title={`Peta lokasi ${site.facultyName}`}

@@ -33,8 +33,7 @@ export const site = {
     ],
 
     dean: {
-        // TODO: ganti dengan nama & gelar lengkap dekan
-        name: 'Nama Dekan, Gelar',
+        name: 'Prof. Dr. H. Hidayatul, M.Pd.',
         photo: '/images/dekan.webp',
         photo2x: '/images/dekan@2x.webp',
     },

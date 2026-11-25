@@ -60,7 +60,7 @@ export function YoutubeEmbed({ videoId, title, start = 0 }: YoutubeEmbedProps) {
                             }
                             className="size-full object-cover transition-transform duration-700 group-hover:scale-105"
                         />
-                        <span className="absolute inset-0 bg-gradient-to-t from-primary-strong/70 via-primary-strong/20 to-transparent" />
+                        <span className="absolute inset-0 bg-gradient-to-t from-surface-purple/70 via-surface-purple/20 to-transparent" />
                         <span className="absolute inset-0 flex items-center justify-center">
                             <span className="relative flex size-20 items-center justify-center">
                                 {/* Animasi CSS: jalan di GPU, tanpa JS per frame */}

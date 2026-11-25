@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, ExternalLink } from 'lucide-react';
 import {
     Sheet,
     SheetContent,
@@ -7,9 +7,8 @@ import {
     SheetTitle,
 } from '@/components/ui/sheet';
 import { isSubGroup, publicNav } from '@/data/navigation';
-import { site } from '@/data/site';
-import { cn } from '@/lib/utils';
 import { isActiveGroup, isActiveNav } from '@/lib/nav';
+import { cn } from '@/lib/utils';
 
 type MobileMenuProps = {
     open: boolean;
@@ -39,10 +38,9 @@ export default function MobileMenu({
 }: MobileMenuProps) {
     return (
         <Sheet open={open} onOpenChange={onOpenChange}>
-            {/* Sheet dirender di luar layout (portal), jadi perlu theme-light sendiri */}
             <SheetContent
                 side="right"
-                className="theme-light w-72 bg-background text-foreground"
+                className="w-72 bg-background text-foreground"
             >
                 <SheetHeader>
                     <SheetTitle className="text-primary">Menu</SheetTitle>
@@ -75,34 +73,81 @@ export default function MobileMenu({
                                                     key={child.group}
                                                     className="mt-1 flex flex-col gap-0.5"
                                                 >
-                                                    <span className="px-3 py-1 text-[11px] font-bold tracking-wider text-muted-foreground uppercase">
+                                                    <span className="px-3 pt-2 pb-1 text-xs font-extrabold tracking-wide text-primary uppercase">
                                                         {child.group}
                                                     </span>
-                                                    {child.links.map((link) => (
-                                                        <Link
-                                                            key={link.href}
-                                                            href={link.href}
-                                                            onClick={() =>
-                                                                onOpenChange(
-                                                                    false,
-                                                                )
-                                                            }
-                                                            className={linkClass(
-                                                                isActiveNav(
-                                                                    url,
-                                                                    link.href,
-                                                                ),
-                                                                true,
-                                                            )}
-                                                        >
-                                                            {link.label}
-                                                        </Link>
-                                                    ))}
+                                                    {child.links.map((link) =>
+                                                        /^https?:\/\//.test(
+                                                            link.href,
+                                                        ) ? (
+                                                            <a
+                                                                key={link.href}
+                                                                href={link.href}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                onClick={() =>
+                                                                    onOpenChange(
+                                                                        false,
+                                                                    )
+                                                                }
+                                                                className={cn(
+                                                                    linkClass(
+                                                                        false,
+                                                                        true,
+                                                                    ),
+                                                                    'flex items-center justify-between gap-2',
+                                                                )}
+                                                            >
+                                                                <span>
+                                                                    {link.label}
+                                                                </span>
+                                                                <ExternalLink className="size-3.5 shrink-0 opacity-60" />
+                                                            </a>
+                                                        ) : (
+                                                            <Link
+                                                                key={link.href}
+                                                                href={link.href}
+                                                                onClick={() =>
+                                                                    onOpenChange(
+                                                                        false,
+                                                                    )
+                                                                }
+                                                                className={linkClass(
+                                                                    isActiveNav(
+                                                                        url,
+                                                                        link.href,
+                                                                    ),
+                                                                    true,
+                                                                )}
+                                                            >
+                                                                {link.label}
+                                                            </Link>
+                                                        ),
+                                                    )}
                                                 </div>
                                             );
                                         }
 
-                                        return (
+                                        return /^https?:\/\//.test(
+                                            child.href,
+                                        ) ? (
+                                            <a
+                                                key={child.href}
+                                                href={child.href}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                onClick={() =>
+                                                    onOpenChange(false)
+                                                }
+                                                className={cn(
+                                                    linkClass(false, true),
+                                                    'flex items-center justify-between gap-2',
+                                                )}
+                                            >
+                                                <span>{child.label}</span>
+                                                <ExternalLink className="size-3.5 shrink-0 opacity-60" />
+                                            </a>
+                                        ) : (
                                             <Link
                                                 key={child.href}
                                                 href={child.href}
@@ -137,31 +182,6 @@ export default function MobileMenu({
                         ),
                     )}
                 </nav>
-                {/* Top bar tersembunyi di mobile, jadi tautannya dipindah ke sini */}
-                <div className="mt-4 flex flex-col gap-2 border-t px-4 pt-4 text-sm">
-                    <a
-                        href={site.links.pmb}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="rounded-full bg-brand-yellow px-4 py-2.5 text-center font-bold text-brand-yellow-foreground"
-                    >
-                        Pendaftaran Mahasiswa Baru
-                    </a>
-                    <a
-                        href={site.links.portalAkademik}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="rounded-md px-3 py-2 font-medium text-muted-foreground hover:text-primary"
-                    >
-                        Portal Akademik
-                    </a>
-                    <Link
-                        href="/login"
-                        className="rounded-md px-3 py-2 font-medium text-muted-foreground hover:text-primary"
-                    >
-                        Masuk CMS
-                    </Link>
-                </div>
             </SheetContent>
         </Sheet>
     );

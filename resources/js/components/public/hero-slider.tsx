@@ -55,7 +55,7 @@ export function HeroSlider({ banners, interval = 6000 }: HeroSliderProps) {
 
     return (
         <section
-            className="relative isolate overflow-hidden bg-primary-strong"
+            className="relative isolate overflow-hidden bg-surface-purple"
             aria-roledescription="carousel"
             aria-label="Banner utama"
         >
@@ -64,7 +64,11 @@ export function HeroSlider({ banners, interval = 6000 }: HeroSliderProps) {
                     {banners.map((banner, index) => (
                         <div
                             key={banner.id}
-                            className="relative h-[70vh] max-h-[720px] min-h-[420px] min-w-0 flex-[0_0_100%]"
+                            className={cn(
+                                'relative h-[70vh] max-h-[720px] min-h-[420px] min-w-0 flex-[0_0_100%]',
+                                banner.imageFit === 'contain' &&
+                                    'bg-white dark:bg-neutral-950',
+                            )}
                             aria-roledescription="slide"
                             aria-label={`${index + 1} dari ${banners.length}`}
                         >
@@ -78,10 +82,17 @@ export function HeroSlider({ banners, interval = 6000 }: HeroSliderProps) {
                                 <m.img
                                     src={banner.imageDesktop}
                                     alt=""
-                                    className="absolute inset-0 size-full object-cover"
+                                    className={cn(
+                                        'absolute inset-0 size-full',
+                                        banner.imageFit === 'contain'
+                                            ? 'object-contain object-right-bottom pb-14 md:pb-16'
+                                            : 'object-cover',
+                                    )}
                                     animate={{
                                         scale:
-                                            selected === index && !reduceMotion
+                                            selected === index &&
+                                            !reduceMotion &&
+                                            banner.imageFit !== 'contain'
                                                 ? 1.08
                                                 : 1,
                                     }}
@@ -95,20 +106,34 @@ export function HeroSlider({ banners, interval = 6000 }: HeroSliderProps) {
                                     decoding={index === 0 ? 'sync' : 'async'}
                                 />
                             </picture>
-                            <div className="absolute inset-0 bg-gradient-to-r from-primary-strong/90 via-primary-strong/55 to-black/10" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                            <div
+                                className={cn(
+                                    'absolute inset-0 bg-gradient-to-b md:bg-gradient-to-r',
+                                    banner.imageFit === 'contain'
+                                        ? 'from-surface-purple/95 via-surface-purple/55 via-45% to-transparent'
+                                        : 'from-surface-purple/90 via-surface-purple/55 to-black/10',
+                                )}
+                            />
+                            <div
+                                className={cn(
+                                    'absolute inset-0 bg-gradient-to-t to-transparent',
+                                    banner.imageFit === 'contain'
+                                        ? 'from-black/25'
+                                        : 'from-black/50',
+                                )}
+                            />
                         </div>
                     ))}
                 </div>
             </div>
 
             {/* Teks slide aktif, dianimasikan ulang setiap ganti slide */}
-            <div className="pointer-events-none absolute inset-0 flex items-center">
-                <div className="mx-auto w-full max-w-7xl px-4 pt-4 pb-28 md:px-6">
+            <div className="pointer-events-none absolute inset-0 flex items-start md:items-center">
+                <div className="mx-auto w-full max-w-7xl px-4 pt-16 pb-28 md:px-6 md:pt-4 md:pb-28">
                     <AnimatePresence mode="wait">
                         <m.div
                             key={active.id}
-                            className="pointer-events-auto max-w-2xl text-white"
+                            className="pointer-events-auto max-w-3xl text-white"
                             initial="hidden"
                             animate="visible"
                             exit="exit"
@@ -132,20 +157,23 @@ export function HeroSlider({ banners, interval = 6000 }: HeroSliderProps) {
                             </m.span>
                             <m.h1
                                 variants={fadeUp}
-                                className="text-3xl font-extrabold tracking-tight text-balance md:text-5xl lg:text-6xl"
+                                className="text-xl leading-tight font-extrabold tracking-tight text-balance sm:text-3xl md:text-4xl lg:text-[42px]"
                             >
                                 {active.title}
                             </m.h1>
                             {active.subtitle && (
                                 <m.p
                                     variants={fadeUp}
-                                    className="mt-4 text-base text-white/85 md:text-lg"
+                                    className="mt-3 max-w-2xl text-base text-white/85 md:mt-4 md:text-lg"
                                 >
                                     {active.subtitle}
                                 </m.p>
                             )}
                             {active.ctaUrl && active.ctaLabel && (
-                                <m.div variants={fadeUp} className="mt-8">
+                                <m.div
+                                    variants={fadeUp}
+                                    className="mt-5 md:mt-8"
+                                >
                                     <Button
                                         asChild
                                         size="lg"

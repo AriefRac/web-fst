@@ -12,11 +12,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'public/home')->name('home');
 
+// Halaman Profil Resmi
+Route::inertia('/profil/sambutan-dekan', 'public/profil/sambutan-dekan')->name('profil.sambutan-dekan');
+Route::inertia('/profil/sekilas-fst', 'public/placeholder', ['title' => 'Sekilas FST'])->name('profil.sekilas-fst');
+
 $placeholders = [
     // Profil
-    'sambutan-dekan'       => 'Sambutan Dekan',
-    'visi-misi'            => 'Visi & Misi',
-    'sejarah'              => 'Sejarah',
+    'profil'               => 'Profil Fakultas',
     'struktur-organisasi'  => 'Struktur Organisasi',
     'alumni'               => 'Alumni',
 

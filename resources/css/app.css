@@ -11,6 +11,16 @@
 @theme inline {
     --animate-marquee: marquee 40s linear infinite;
     --animate-nav-underline: nav-underline 0.35s ease-out;
+    --animate-border-beam: border-beam 3.5s linear infinite;
+
+    @keyframes border-beam {
+        0% {
+            transform: translateX(-100%);
+        }
+        100% {
+            transform: translateX(300%);
+        }
+    }
 
     @keyframes nav-underline {
         from {
@@ -53,6 +63,7 @@
     --color-primary-foreground: var(--primary-foreground);
     --color-primary-soft: var(--primary-soft);
     --color-primary-strong: var(--primary-strong);
+    --color-surface-purple: var(--surface-purple);
 
     /* Aksen kuning dari logo UIN */
     --color-brand-yellow: var(--brand-yellow);
@@ -106,6 +117,7 @@
     --primary-foreground: oklch(0.985 0 0);
     --primary-soft: oklch(0.965 0.02 300);
     --primary-strong: oklch(0.3 0.13 300);
+    --surface-purple: oklch(0.3 0.13 300);
     --brand-yellow: oklch(0.8 0.155 82);
     --brand-yellow-foreground: oklch(0.25 0.05 70);
     --secondary: oklch(0.97 0 0);
@@ -146,6 +158,7 @@
     --primary-foreground: oklch(0.18 0.05 300);
     --primary-soft: oklch(0.27 0.06 300);
     --primary-strong: oklch(0.82 0.1 300);
+    --surface-purple: oklch(0.22 0.1 300);
     --brand-yellow: oklch(0.8 0.155 82);
     --brand-yellow-foreground: oklch(0.25 0.05 70);
     --secondary: oklch(0.269 0 0);

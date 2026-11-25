@@ -1,3 +1,5 @@
+import { site } from '@/data/site';
+
 export type NavLink = {
     label: string;
     href: string;
@@ -21,24 +23,44 @@ export type NavItem =
  */
 export const publicNav: NavItem[] = [
     {
-        label: 'Profil',
+        label: 'Profil & Sivitas',
         children: [
-            { label: 'Sambutan Dekan', href: '/sambutan-dekan' },
-            { label: 'Visi & Misi', href: '/visi-misi' },
-            { label: 'Sejarah', href: '/sejarah' },
-            { label: 'Struktur Organisasi', href: '/struktur-organisasi' },
-            { label: 'Alumni', href: '/alumni' },
+            {
+                group: 'Profil',
+                links: [
+                    {
+                        label: 'Sambutan Dekan',
+                        href: '/profil/sambutan-dekan',
+                    },
+                    { label: 'Sekilas FST', href: '/profil/sekilas-fst' },
+                    {
+                        label: 'Struktur Organisasi',
+                        href: '/struktur-organisasi',
+                    },
+                    { label: 'Akreditasi', href: '/akreditasi' },
+                ],
+            },
+            {
+                group: 'Sivitas',
+                links: [
+                    { label: 'Dosen', href: '/dosen' },
+                    { label: 'Alumni', href: '/alumni' },
+                ],
+            },
         ],
     },
     {
         label: 'Akademik',
         children: [
             { label: 'Program Studi', href: '/program-studi' },
-            { label: 'Dosen', href: '/dosen' },
             { label: 'Kalender Akademik', href: '/kalender' },
             { label: 'Beasiswa', href: '/beasiswa' },
             { label: 'Etika Mahasiswa', href: '/etika-mahasiswa' },
-            { label: 'Akreditasi', href: '/akreditasi' },
+            { label: 'Portal Akademik', href: site.links.portalAkademik },
+            {
+                label: 'Penerimaan Mahasiswa Baru (PMB)',
+                href: site.links.pmb,
+            },
         ],
     },
     {

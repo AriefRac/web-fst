@@ -56,7 +56,7 @@ function PartnerLogo({ partner }: { partner: Partner }) {
             // URL yang sama, jadi diambil dari cache browser (tidak diunduh ulang).
             loading="lazy"
             decoding="async"
-            className="h-16 w-auto max-w-full object-contain opacity-60 grayscale transition duration-300 hover:scale-105 hover:opacity-100 hover:grayscale-0 md:h-20"
+            className="h-16 w-auto max-w-full object-contain opacity-60 grayscale transition duration-300 hover:scale-105 hover:opacity-100 hover:grayscale-0 md:h-20 dark:rounded-xl dark:bg-white/95 dark:px-3 dark:py-2 dark:opacity-85"
         />
     );
 }

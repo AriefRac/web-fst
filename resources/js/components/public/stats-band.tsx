@@ -17,7 +17,7 @@ const icons: Record<string, LucideIcon> = {
  */
 export function StatsBand() {
     return (
-        <section className="relative z-10 mx-auto -mt-14 max-w-6xl px-4 md:-mt-16 md:px-6">
+        <section className="theme-light relative z-10 mx-auto -mt-14 max-w-6xl px-4 md:-mt-16 md:px-6">
             <Reveal y={32}>
                 <div className="grid grid-cols-2 overflow-hidden rounded-2xl border bg-white shadow-xl shadow-primary/10 md:grid-cols-4">
                     {site.stats.map((stat, i) => {
