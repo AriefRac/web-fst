@@ -9,6 +9,7 @@ import type {
     EventSummary,
     LecturerSummary,
     PostSummary,
+    StudyProgramSummary,
 } from '@/types/content';
 
 const img = (seed: string, w: number, h: number) =>
@@ -19,11 +20,11 @@ export const banners: Banner[] = [
         id: 1,
         title: 'Sains Unggul, Teknologi Inovatif, Berkarakter Islami',
         subtitle:
-            'Pendaftaran jalur mandiri dibuka hingga 31 Januari 2027. Temukan program studi yang sesuai minatmu.',
+            'Mencetak lulusan unggul berwawasan global melalui riset inovatif, pengabdian bernilai keislaman, kemitraan strategis, dan tata kelola unggul.',
         imageDesktop: '/images/hero/1.webp',
         imageFit: 'contain',
-        ctaLabel: 'Info Pendaftaran',
-        ctaUrl: 'https://pmb.uinbanten.ac.id/',
+        ctaLabel: 'Jelajahi Program Studi',
+        ctaUrl: '#program-studi',
     },
     {
         id: 2,
@@ -204,4 +205,48 @@ export const documentCategories: DocumentCategoryLink[] = [
     { label: 'Formulir', count: 18, href: '/dokumen?kategori=formulir' },
     { label: 'SK & Peraturan', count: 12, href: '/dokumen?kategori=sk' },
     { label: 'Panduan', count: 9, href: '/dokumen?kategori=panduan' },
+];
+
+export const studyPrograms: StudyProgramSummary[] = [
+    {
+        id: 1,
+        name: 'Matematika',
+        slug: 'matematika',
+        degree: 'S1',
+        accreditation: 'Unggul',
+        href: '/program-studi/matematika',
+    },
+    {
+        id: 2,
+        name: 'Kimia',
+        slug: 'kimia',
+        degree: 'S1',
+        accreditation: 'Baik Sekali',
+        href: '/program-studi/kimia',
+    },
+    {
+        id: 3,
+        name: 'Biologi',
+        slug: 'biologi',
+        degree: 'S1',
+        accreditation: 'Unggul',
+        href: '/program-studi/biologi',
+    },
+    {
+        id: 4,
+        name: 'Fisika',
+        slug: 'fisika',
+        degree: 'S1',
+        accreditation: 'Baik Sekali',
+        href: '/program-studi/fisika',
+    },
+    {
+        id: 5,
+        name: 'Informatika',
+        slug: 'informatika',
+        degree: 'S1',
+        accreditation: 'Unggul',
+        logo: '/images/prodi/informatika.png',
+        href: '/program-studi/informatika',
+    },
 ];

@@ -63,3 +63,13 @@ export type DocumentCategoryLink = {
     count: number;
     href: string;
 };
+
+export type StudyProgramSummary = {
+    id: number;
+    name: string;
+    slug: string;
+    degree: string;
+    accreditation: string;
+    logo?: string;
+    href: string;
+};
