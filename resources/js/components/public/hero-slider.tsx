@@ -164,7 +164,7 @@ export function HeroSlider({ banners, interval = 6000 }: HeroSliderProps) {
                             {active.subtitle && (
                                 <m.p
                                     variants={fadeUp}
-                                    className="mt-3 max-w-2xl text-base text-white/85 md:mt-4 md:text-lg"
+                                    className="mt-2.5 max-w-2xl text-xs leading-relaxed text-white/85 sm:mt-3 sm:text-sm md:mt-4 md:text-base"
                                 >
                                     {active.subtitle}
                                 </m.p>
@@ -185,6 +185,26 @@ export function HeroSlider({ banners, interval = 6000 }: HeroSliderProps) {
                                                 href={active.ctaUrl}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
+                                            >
+                                                {active.ctaLabel}
+                                            </a>
+                                        ) : active.ctaUrl.startsWith('#') ? (
+                                            <a
+                                                href={active.ctaUrl}
+                                                onClick={(e) => {
+                                                    const hash = active.ctaUrl;
+                                                    const target = hash
+                                                        ? document.querySelector(
+                                                              hash,
+                                                          )
+                                                        : null;
+                                                    if (target) {
+                                                        e.preventDefault();
+                                                        target.scrollIntoView({
+                                                            behavior: 'smooth',
+                                                        });
+                                                    }
+                                                }}
                                             >
                                                 {active.ctaLabel}
                                             </a>

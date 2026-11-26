@@ -5,6 +5,7 @@ import { HeroSlider } from '@/components/public/hero-slider';
 import { PartnerMarquee } from '@/components/public/partner-marquee';
 import { SectionHeading } from '@/components/public/section-heading';
 import { StatsBand } from '@/components/public/stats-band';
+import { StudyProgramsSection } from '@/components/public/study-programs-section';
 import { YoutubeEmbed } from '@/components/public/youtube-embed';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -12,6 +13,7 @@ import {
     banners,
     headlinePost,
     latestPosts,
+    studyPrograms,
     upcomingEvents,
 } from '@/data/dummy';
 import { partners } from '@/data/partners';
@@ -41,6 +43,8 @@ export default function Home() {
 
             <div className="flow-root dark:bg-neutral-900/60">
                 <StatsBand />
+
+                <StudyProgramsSection programs={studyPrograms} />
 
                 {/* Headline + berita terbaru */}
                 <section className="bg-muted/40 py-20 md:py-24 dark:bg-transparent">
