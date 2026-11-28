@@ -94,38 +94,38 @@ export default function Home() {
                                 </Link>
                             </Reveal>
 
-                            <div className="flex flex-col gap-4 lg:col-span-2">
-                                {latestPosts.map((post, i) => (
-                                    <Reveal key={post.id} delay={0.1 * (i + 1)}>
-                                        <Link
-                                            href={`/berita/${post.slug}`}
-                                            className="group flex gap-4 rounded-xl border bg-card p-3 transition-shadow hover:shadow-lg hover:shadow-primary/10"
-                                        >
-                                            <div className="w-32 shrink-0 overflow-hidden rounded-lg md:w-36">
-                                                <img
-                                                    src={post.thumbnail}
-                                                    alt=""
-                                                    className="aspect-[4/3] size-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                                    loading="lazy"
-                                                />
-                                            </div>
-                                            <div className="min-w-0 py-1">
-                                                <p className="text-xs font-semibold text-primary">
-                                                    {post.category}
-                                                </p>
-                                                <h4 className="mt-1 line-clamp-2 font-bold transition-colors group-hover:text-primary">
-                                                    {post.title}
-                                                </h4>
-                                                <p className="mt-2 text-xs text-muted-foreground">
-                                                    {formatDate(
-                                                        post.publishedAt,
-                                                    )}
-                                                </p>
-                                            </div>
-                                        </Link>
-                                    </Reveal>
+                            <Reveal
+                                delay={0.1}
+                                className="flex flex-col gap-4 lg:col-span-2"
+                            >
+                                {latestPosts.map((post) => (
+                                    <Link
+                                        key={post.id}
+                                        href={`/berita/${post.slug}`}
+                                        className="group flex gap-4 rounded-xl border bg-card p-3 transition-shadow hover:shadow-lg hover:shadow-primary/10"
+                                    >
+                                        <div className="w-32 shrink-0 overflow-hidden rounded-lg md:w-36">
+                                            <img
+                                                src={post.thumbnail}
+                                                alt=""
+                                                className="aspect-[4/3] size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                                loading="lazy"
+                                            />
+                                        </div>
+                                        <div className="min-w-0 py-1">
+                                            <p className="text-xs font-semibold text-primary">
+                                                {post.category}
+                                            </p>
+                                            <h4 className="mt-1 line-clamp-2 font-bold transition-colors group-hover:text-primary">
+                                                {post.title}
+                                            </h4>
+                                            <p className="mt-2 text-xs text-muted-foreground">
+                                                {formatDate(post.publishedAt)}
+                                            </p>
+                                        </div>
+                                    </Link>
                                 ))}
-                            </div>
+                            </Reveal>
                         </div>
                     </div>
                 </section>
@@ -141,10 +141,10 @@ export default function Home() {
                             moreHref="/pengumuman"
                         />
                     </Reveal>
-                    <ul className="divide-y overflow-hidden rounded-2xl border">
-                        {announcements.map((item, i) => (
-                            <Reveal key={item.id} delay={0.05 * i} y={12}>
-                                <li>
+                    <Reveal delay={0.08} y={16}>
+                        <ul className="divide-y overflow-hidden rounded-2xl border">
+                            {announcements.map((item) => (
+                                <li key={item.id}>
                                     <Link
                                         href={`/pengumuman/${item.slug}`}
                                         className="group flex items-start gap-3 border-l-[3px] border-transparent p-4 transition-colors hover:border-brand-yellow hover:bg-primary-soft/60"
@@ -170,9 +170,9 @@ export default function Home() {
                                         )}
                                     </Link>
                                 </li>
-                            </Reveal>
-                        ))}
-                    </ul>
+                            ))}
+                        </ul>
+                    </Reveal>
                 </div>
 
                 <div>
@@ -183,15 +183,15 @@ export default function Home() {
                             moreHref="/agenda"
                         />
                     </Reveal>
-                    <ul className="flex flex-col gap-4">
-                        {upcomingEvents.map((event, i) => {
-                            const badge = dateBadge(event.startsAt);
-                            const status =
-                                executionLabel[event.executionStatus];
+                    <Reveal delay={0.08} y={16}>
+                        <ul className="flex flex-col gap-4">
+                            {upcomingEvents.map((event) => {
+                                const badge = dateBadge(event.startsAt);
+                                const status =
+                                    executionLabel[event.executionStatus];
 
-                            return (
-                                <Reveal key={event.id} delay={0.08 * i} y={12}>
-                                    <li>
+                                return (
+                                    <li key={event.id}>
                                         <Link
                                             href={`/agenda/${event.slug}`}
                                             className="group flex gap-4 rounded-2xl border p-4 transition-shadow hover:shadow-lg hover:shadow-primary/10"
@@ -235,10 +235,10 @@ export default function Home() {
                                             </div>
                                         </Link>
                                     </li>
-                                </Reveal>
-                            );
-                        })}
-                    </ul>
+                                );
+                            })}
+                        </ul>
+                    </Reveal>
                 </div>
             </section>
 

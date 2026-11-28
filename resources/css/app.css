@@ -12,6 +12,24 @@
     --animate-marquee: marquee 40s linear infinite;
     --animate-nav-underline: nav-underline 0.35s ease-out;
     --animate-border-beam: border-beam 3.5s linear infinite;
+    --animate-meteor-effect: meteor 5s linear infinite;
+
+    @keyframes meteor {
+        0% {
+            transform: rotate(215deg) translateX(0);
+            opacity: 0;
+        }
+        10% {
+            opacity: 1;
+        }
+        70% {
+            opacity: 1;
+        }
+        100% {
+            transform: rotate(215deg) translateX(-650px);
+            opacity: 0;
+        }
+    }
 
     @keyframes border-beam {
         0% {

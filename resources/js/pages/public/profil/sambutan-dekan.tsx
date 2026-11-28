@@ -11,9 +11,9 @@ export default function SambutanDekan() {
             <Head title="Sambutan Dekan" />
 
             <section className="relative overflow-hidden py-16 md:py-24">
-                {/* Dekorasi lembut latar belakang */}
-                <div className="pointer-events-none absolute -top-24 -right-24 size-96 rounded-full bg-primary-soft blur-3xl" />
-                <div className="pointer-events-none absolute -bottom-24 -left-24 size-96 rounded-full bg-brand-yellow/15 blur-3xl" />
+                {/* Dekorasi lembut latar belakang (radial-gradient ringan tanpa blur-3xl) */}
+                <div className="pointer-events-none absolute -top-24 -right-24 size-96 rounded-full bg-[radial-gradient(circle,var(--primary-soft)_0%,transparent_70%)]" />
+                <div className="pointer-events-none absolute -bottom-24 -left-24 size-96 rounded-full bg-[radial-gradient(circle,color-mix(in_oklch,var(--brand-yellow)_18%,transparent)_0%,transparent_70%)]" />
 
                 <div className="relative mx-auto max-w-6xl px-4 md:px-6">
                     <Reveal>

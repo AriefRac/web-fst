@@ -68,7 +68,7 @@ export function StudyProgramsSection({ programs }: StudyProgramsSectionProps) {
 
                 {/* Tampilan PC: satu bingkai terbagi 5 kolom bersekat tipis */}
                 <Reveal delay={0.08} y={18}>
-                    <div className="hidden overflow-hidden rounded-2xl border bg-card shadow-sm md:grid md:grid-cols-5 md:divide-x md:divide-border">
+                    <div className="hidden overflow-hidden rounded-2xl border-2 border-neutral-300/90 bg-card shadow-md shadow-primary/5 md:grid md:grid-cols-5 md:divide-x-2 md:divide-neutral-300/90 dark:border-neutral-700 dark:md:divide-neutral-700">
                         {programs.map((program) => {
                             const Icon =
                                 programIcons[program.slug] ?? GraduationCap;
@@ -100,11 +100,11 @@ export function StudyProgramsSection({ programs }: StudyProgramsSectionProps) {
                                         aria-hidden="true"
                                         className="pointer-events-none absolute right-3 bottom-3"
                                     >
-                                        <div className="rounded-[26px] border border-border/50 p-2 transition-colors duration-300 group-hover:border-white/20">
-                                            <div className="rounded-[20px] border border-border/80 p-2 transition-colors duration-300 group-hover:border-white/35">
+                                        <div className="rounded-[26px] border-[1.5px] border-neutral-300/70 p-2 transition-colors duration-300 group-hover:border-white/30 dark:border-neutral-700/70">
+                                            <div className="rounded-[20px] border-[1.5px] border-neutral-300/90 p-2 transition-colors duration-300 group-hover:border-white/45 dark:border-neutral-700">
                                                 <div
                                                     className={cn(
-                                                        'flex size-14 items-center justify-center rounded-2xl border border-border bg-transparent transition-colors duration-300 group-hover:border-white/50',
+                                                        'flex size-14 items-center justify-center rounded-2xl border-2 border-neutral-300 bg-transparent transition-colors duration-300 group-hover:border-white/65 dark:border-neutral-600',
                                                         !program.logo &&
                                                             'text-primary group-hover:text-white',
                                                     )}
@@ -144,7 +144,7 @@ export function StudyProgramsSection({ programs }: StudyProgramsSectionProps) {
                                 key={program.id}
                                 href={program.href}
                                 className={cn(
-                                    'group relative flex items-center justify-between gap-3 overflow-hidden rounded-2xl border bg-card px-4 py-3.5 transition-all duration-300 hover:border-transparent hover:shadow-md focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none',
+                                    'group relative flex items-center justify-between gap-3 overflow-hidden rounded-2xl border-2 border-neutral-300/90 bg-card px-4 py-3.5 shadow-xs transition-all duration-300 hover:border-transparent hover:shadow-md focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none dark:border-neutral-700',
                                     hoverColor,
                                 )}
                             >
@@ -180,7 +180,7 @@ export function StudyProgramsSection({ programs }: StudyProgramsSectionProps) {
                             asChild
                             size="lg"
                             variant="outline"
-                            className="group h-12 rounded-full bg-card px-7 font-semibold text-foreground shadow-xs transition-colors hover:border-primary/40 hover:bg-primary hover:text-primary-foreground"
+                            className="group h-12 rounded-full border-2 border-neutral-300 bg-card px-7 font-semibold text-foreground shadow-xs transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground dark:border-neutral-700"
                         >
                             <Link href="/program-studi">
                                 Semua Prodi

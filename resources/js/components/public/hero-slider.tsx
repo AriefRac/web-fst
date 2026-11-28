@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { AnimatePresence, m, useReducedMotion } from 'motion/react';
 import { useCallback, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { Meteors } from '@/components/ui/meteors';
 import { cn } from '@/lib/utils';
 import type { Banner } from '@/types/content';
 
@@ -55,11 +56,19 @@ export function HeroSlider({ banners, interval = 6000 }: HeroSliderProps) {
 
     return (
         <section
-            className="relative isolate overflow-hidden bg-surface-purple"
+            className="relative isolate overflow-hidden bg-surface-purple dark:bg-neutral-950"
             aria-roledescription="carousel"
             aria-label="Banner utama"
         >
-            <div ref={emblaRef} className="overflow-hidden">
+            {/* Efek hujan meteor di latar belakang slide khusus dark mode */}
+            <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 hidden overflow-hidden [contain:layout_paint] dark:block"
+            >
+                <Meteors number={10} />
+            </div>
+
+            <div ref={emblaRef} className="relative z-10 overflow-hidden">
                 <div className="flex">
                     {banners.map((banner, index) => (
                         <div
@@ -67,7 +76,7 @@ export function HeroSlider({ banners, interval = 6000 }: HeroSliderProps) {
                             className={cn(
                                 'relative h-[70vh] max-h-[720px] min-h-[420px] min-w-0 flex-[0_0_100%]',
                                 banner.imageFit === 'contain' &&
-                                    'bg-white dark:bg-neutral-950',
+                                    'bg-white dark:bg-transparent',
                             )}
                             aria-roledescription="slide"
                             aria-label={`${index + 1} dari ${banners.length}`}
@@ -128,7 +137,7 @@ export function HeroSlider({ banners, interval = 6000 }: HeroSliderProps) {
             </div>
 
             {/* Teks slide aktif, dianimasikan ulang setiap ganti slide */}
-            <div className="pointer-events-none absolute inset-0 flex items-start md:items-center">
+            <div className="pointer-events-none absolute inset-0 z-20 flex items-start md:items-center">
                 <div className="mx-auto w-full max-w-7xl px-4 pt-16 pb-28 md:px-6 md:pt-4 md:pb-28">
                     <AnimatePresence mode="wait">
                         <m.div
@@ -223,7 +232,7 @@ export function HeroSlider({ banners, interval = 6000 }: HeroSliderProps) {
 
             {banners.length > 1 && (
                 <>
-                    <div className="absolute right-4 bottom-20 flex gap-2 md:right-6 md:bottom-24">
+                    <div className="absolute right-4 bottom-20 z-20 flex gap-2 md:right-6 md:bottom-24">
                         <Button
                             size="icon"
                             variant="secondary"
@@ -244,7 +253,7 @@ export function HeroSlider({ banners, interval = 6000 }: HeroSliderProps) {
                         </Button>
                     </div>
 
-                    <div className="absolute bottom-[88px] left-1/2 flex -translate-x-1/2 gap-2 md:bottom-[104px]">
+                    <div className="absolute bottom-[88px] left-1/2 z-20 flex -translate-x-1/2 gap-2 md:bottom-[104px]">
                         {banners.map((banner, index) => (
                             <button
                                 key={banner.id}

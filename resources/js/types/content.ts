@@ -73,3 +73,18 @@ export type StudyProgramSummary = {
     logo?: string;
     href: string;
 };
+
+export type HistoryTimelineItem = {
+    year: string;
+    title: string;
+};
+
+export type SekilasFstContent = {
+    historyTitle: string;
+    historyParagraphs: string[];
+    timeline: HistoryTimelineItem[];
+    vision: string;
+    missions: string[];
+    objectives: string[];
+    strategicTargets: string[];
+};

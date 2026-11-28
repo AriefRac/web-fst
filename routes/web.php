@@ -14,7 +14,7 @@ Route::inertia('/', 'public/home')->name('home');
 
 // Halaman Profil Resmi
 Route::inertia('/profil/sambutan-dekan', 'public/profil/sambutan-dekan')->name('profil.sambutan-dekan');
-Route::inertia('/profil/sekilas-fst', 'public/placeholder', ['title' => 'Sekilas FST'])->name('profil.sekilas-fst');
+Route::inertia('/profil/sekilas-fst', 'public/profil/sekilas-fst')->name('profil.sekilas-fst');
 
 $placeholders = [
     // Profil
